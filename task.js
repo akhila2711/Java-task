@@ -24,20 +24,21 @@ function addInput() {
         const div2 = document.getElementById("div2");
         const circle = document.createElement("div");
 
-        const divWidth = div2.clientWidth || 500; // Default width if not set
-        const divHeight = div2.clientHeight || 500; 
-        const circleDiameter = 40;
+        const divWidth = div2.clientWidth;
+        const divHeight = div2.clientHeight;
+        const circleDiameter = 40; // Diameter of the circle
 
+        
         const circleX = Math.random() * (divWidth - circleDiameter);
         const circleY = Math.random() * (divHeight - circleDiameter);
 
-        circle.style.position = "absolute";
+        circle.style.position = "absolute"; 
         circle.style.left = circleX + "px";
         circle.style.top = circleY + "px";
 
         circle.textContent = serialNumber;
-        circle.style.width = "40px";
-        circle.style.height = "40px";
+        circle.style.width = circleDiameter + "px";
+        circle.style.height = circleDiameter + "px";
         circle.style.borderRadius = "50%";
         circle.style.display = "flex";
         circle.style.alignItems = "center";
@@ -46,11 +47,9 @@ function addInput() {
         circle.style.color = "white";
         circle.style.margin = "5px";
 
-        
         circle.addEventListener("click", function () {
             circle.style.backgroundColor = "green";
 
-            
             const rows = tableBody.getElementsByTagName("tr");
             for (let i = 0; i < rows.length; i++) {
                 const row = rows[i];
@@ -60,31 +59,14 @@ function addInput() {
                 }
             }
 
-            
             updateTotal();
         });
 
         div2.appendChild(circle);
 
-        
         updateTotal();
     } else {
         alert("Please enter a value.");
     }
 }
 
-function updateTotal() {
-    const tableBody = document.getElementById("tableBody");
-    const rows = tableBody.getElementsByTagName("tr");
-    let total = 0;
-
-    for (let i = 0; i < rows.length; i++) {
-        const value = parseFloat(rows[i].cells[1].textContent);
-        if (!isNaN(value)) {
-            total += value;
-        }
-    }
-
-    const totalDisplay = document.getElementById("totalDisplay");
-    totalDisplay.textContent = "Total: " + total;
-}
